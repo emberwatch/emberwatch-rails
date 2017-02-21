@@ -4,10 +4,10 @@ class PersonSerializer < ActiveModel::Serializer
     :shortname,
     :name,
     :github,
-    :slack
+    :slack,
     :twitter,
     :slideshare,
     :speakerdeck,
     :site,
-    :company,
+    :company
 end
