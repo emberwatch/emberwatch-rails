@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20170221160929) do
     t.string   "title"
     t.string   "publisher"
     t.string   "url"
-    t.string   "payment"
+    t.boolean  "payment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

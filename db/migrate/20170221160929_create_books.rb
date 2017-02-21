@@ -4,7 +4,7 @@ class CreateBooks < ActiveRecord::Migration[5.0]
       t.string :title
       t.string :publisher
       t.string :url
-      t.string :payment
+      t.boolean :payment
 
       t.timestamps
     end
