@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170221160929) do
+ActiveRecord::Schema.define(version: 20170221172326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,65 @@ ActiveRecord::Schema.define(version: 20170221160929) do
     t.boolean  "payment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.date     "date"
+    t.string   "name"
+    t.string   "site"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.integer  "old_id"
+    t.string   "shortname"
+    t.string   "name"
+    t.string   "github"
+    t.string   "slack"
+    t.string   "twitter"
+    t.string   "slideshare"
+    t.string   "speakerdeck"
+    t.string   "site"
+    t.string   "company"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "screencasts", force: :cascade do |t|
+    t.string   "title"
+    t.string   "url"
+    t.date     "date"
+    t.text     "videos",     default: "--- []\n"
+    t.string   "series"
+    t.string   "price"
+    t.string   "subtitle"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  create_table "talks", force: :cascade do |t|
+    t.string   "title"
+    t.string   "subtitle"
+    t.text     "videos"
+    t.string   "url"
+    t.string   "slides"
+    t.date     "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tutorials", force: :cascade do |t|
+    t.string   "title"
+    t.text     "urls"
+    t.date     "date"
+    t.string   "code"
+    t.date     "date_updated"
+    t.date     "date_created"
+    t.text     "versions"
+    t.string   "demo"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
 end

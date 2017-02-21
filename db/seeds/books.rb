@@ -84,35 +84,3 @@ BOOKS = [
     payment: true
   }
 ]
-
-class Api::TemporaryController < ApplicationController
-  def books
-    render json: Book.all
-  end
-
-  def contribute
-  end
-
-  def events
-    render json: Event.all
-  end
-
-  def people
-    render json: Person.all
-  end
-
-  def podcast_feeds
-  end
-
-  def screencasts
-    render json: Screencast.all
-  end
-
-  def talks
-    render json: Talk.all
-  end
-
-  def tutorials
-    render json: Tutorial.all
-  end
-end
