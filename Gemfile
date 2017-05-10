@@ -11,6 +11,9 @@ gem 'rails', '~> 5.0.1'
 # Database
 gem 'pg', '~> 0.18'
 
+# Querying
+gem 'ransack', '~> 1.8', '>= 1.8.2'
+
 # Server
 gem 'puma', '~> 3.0'
 
@@ -19,6 +22,10 @@ gem 'active_model_serializers', '~> 0.10.0'
 
 # CORS
 gem 'rack-cors', '~> 0.4.1', require: 'rack/cors'
+
+# Authorization
+gem 'rolify', '~> 5.1'
+gem 'pundit', '~> 1.1'
 
 ###############################################
 # Development dependencies
