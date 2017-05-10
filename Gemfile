@@ -54,6 +54,9 @@ end
 group :test do
   # Active Model Serializer testing
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers', branch: 'rails-5'
+
+  # API auto documentation
+  gem 'rspec-apib', '~> 0.1.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

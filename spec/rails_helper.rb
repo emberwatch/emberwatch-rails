@@ -8,6 +8,7 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'shoulda-matchers'
 require "pundit/rspec"
+require 'rspec/apib'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -22,7 +23,7 @@ require "pundit/rspec"
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -64,3 +65,20 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+# Configuration
+RSpec::Apib.configure do |config|
+  # Define pre documentation files
+  config.pre_docs = Dir[Rails.root.join('docs/pre_*.md')]
+
+  # Define post documentation files
+  config.post_docs = Dir[Rails.root.join('docs/post_*.md')]
+
+  # Define output file
+  config.dest_file = Rails.root.join('apiary.apib')
+
+  # Example types to record
+  config.record_types = [:request]
+end
+
+RSpec::Apib.start if ENV['APIB']

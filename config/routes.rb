@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  
+
   namespace :api do
-    get 'books', to: 'temporary#books'
+    resources :books, except: %i(new edit)
     get 'contribute', to: 'temporary#contribute'
     get 'events', to: 'temporary#events'
     get 'people', to: 'temporary#people'

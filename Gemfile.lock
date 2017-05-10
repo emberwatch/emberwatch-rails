@@ -159,6 +159,9 @@ GEM
       rspec-core (~> 3.6.0)
       rspec-expectations (~> 3.6.0)
       rspec-mocks (~> 3.6.0)
+    rspec-apib (0.1.0)
+      rails (>= 4.2)
+      rspec-rails (~> 3.4)
     rspec-core (3.6.0)
       rspec-support (~> 3.6.0)
     rspec-expectations (3.6.0)
@@ -211,6 +214,7 @@ DEPENDENCIES
   rails (~> 5.0.1)
   ransack (~> 1.8, >= 1.8.2)
   rolify (~> 5.1)
+  rspec-apib (~> 0.1.0)
   rspec-rails (~> 3.6)
   shoulda-matchers!
   tzinfo-data
