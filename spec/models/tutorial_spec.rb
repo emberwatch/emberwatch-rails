@@ -12,6 +12,8 @@ RSpec.describe Tutorial, type: :model do
   it { should have_db_column(:created_at) }
   it { should have_db_column(:updated_at) }
 
+  it { should validate_presence_of :title }
+
   it 'is valid' do
     tutorial = FactoryGirl.build(:tutorial)
     expect(tutorial).to be_valid
