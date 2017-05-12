@@ -5,9 +5,9 @@ Rails.application.routes.draw do
     resources :books, except: %i(new edit)
     resources :events, except: %i(new edit)
     resources :people, except: %i(new edit)
+    resources :screencasts, except: %i(new edit)
     get 'contribute', to: 'temporary#contribute'
     get 'podcast-feeds', to: 'temporary#podcast_feeds'
-    get 'screencasts', to: 'temporary#screencasts'
     get 'talks', to: 'temporary#talks'
     get 'tutorials', to: 'temporary#tutorials'
   end
