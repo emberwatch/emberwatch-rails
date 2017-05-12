@@ -33,15 +33,6 @@ module Concerns
                status: :bad_request
       end
 
-      # Custom handler if specified content locale is not available for hotel
-      def unknown_locale(exception)
-        render json: {
-                 status: 400,
-                 message: "Unknown locale. #{exception.message}"
-               },
-               status: :bad_request
-      end
-
       # Custom handler for unauthorized access
       def unauthorized_request
         render json: {
