@@ -53,5 +53,5 @@ the project to generate API documentation off of the request specs. This can be
 enabled by setting the `APIB` environment variable to `true`.
 
 ```
-docker-compose run -e RPIB=true web rspec
+docker-compose run -e APIB=true web rspec
 ```
