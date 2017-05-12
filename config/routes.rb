@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :books, except: %i(new edit)
+    resources :events, except: %i(new edit)
     get 'contribute', to: 'temporary#contribute'
-    get 'events', to: 'temporary#events'
     get 'people', to: 'temporary#people'
     get 'podcast-feeds', to: 'temporary#podcast_feeds'
     get 'screencasts', to: 'temporary#screencasts'
