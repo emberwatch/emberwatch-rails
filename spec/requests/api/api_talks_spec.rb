@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Api::Talks", type: :request do
-  let(:admin) { FactoryGirl.build :admin }
+  let(:admin) { FactoryGirl.create :admin }
   let(:talk) { FactoryGirl.create :talk, id: '385eec4b-dd26-4f49-8ff2-d84861ae9541' }
+  let(:token) { "Token #{AuthenticationService.new(admin).create_token}" }
+  let(:headers) { { 'Authorization' => token } }
 
   before :each do
     talk
@@ -10,8 +12,6 @@ RSpec.describe "Api::Talks", type: :request do
 
   describe '#index' do
     it "works", doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::TalksController).to receive(:current_user).and_return(admin)
       get api_talks_path
       expect(response).to have_http_status(200)
     end
@@ -19,18 +19,14 @@ RSpec.describe "Api::Talks", type: :request do
 
   describe '#create' do
     it 'is successful', doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::TalksController).to receive(:current_user).and_return(admin)
       attributes = { type: 'talks', attributes: FactoryGirl.attributes_for(:talk) }
-      post api_talks_path, params: { data: attributes }
+      post api_talks_path, params: { data: attributes }, headers: headers
       expect(response).to be_successful
     end
 
     it 'is unprocessable with invalid data', doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::TalksController).to receive(:current_user).and_return(admin)
       attributes = { type: 'talks', attributes: FactoryGirl.attributes_for(:talk, title: '') }
-      post api_talks_path, params: { data: attributes }
+      post api_talks_path, params: { data: attributes }, headers: headers
       expect(response).to be_unprocessable
     end
 
@@ -50,18 +46,14 @@ RSpec.describe "Api::Talks", type: :request do
 
   describe '#update' do
     it 'is successful', doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::TalksController).to receive(:current_user).and_return(admin)
       attributes = { type: 'talks', id: talk.id, attributes: { title: 'new title' } }
-      patch api_talk_path(id: talk.id), params: { data: attributes }
+      patch api_talk_path(id: talk.id), params: { data: attributes }, headers: headers
       expect(response).to be_successful
     end
 
     it 'is unprocessable with invalid data', doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::TalksController).to receive(:current_user).and_return(admin)
       attributes = { type: 'talks', id: talk.id, attributes: { title: '' } }
-      patch api_talk_path(id: talk.id), params: { data: attributes }
+      patch api_talk_path(id: talk.id), params: { data: attributes }, headers: headers
       expect(response).to be_unprocessable
     end
 
@@ -74,9 +66,7 @@ RSpec.describe "Api::Talks", type: :request do
 
   describe '#destroy' do
     it 'is successful', doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::TalksController).to receive(:current_user).and_return(admin)
-      delete api_talk_path(id: talk.id)
+      delete api_talk_path(id: talk.id), headers: headers
       expect(response).to be_successful
     end
 

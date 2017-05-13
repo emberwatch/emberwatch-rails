@@ -83,6 +83,7 @@ GEM
     json (1.8.3)
     jsonapi (0.1.1.beta2)
       json (~> 1.8)
+    jwt (1.5.6)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -191,6 +192,7 @@ GEM
       sprockets (>= 3.0.0)
     thor (0.19.4)
     thread_safe (0.3.5)
+    timecop (0.8.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     websocket-driver (0.6.5)
@@ -205,6 +207,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.8)
   guard (~> 2.14)
   guard-rspec (~> 4.7)
+  jwt (~> 1.5, >= 1.5.4)
   pg (~> 0.18)
   pry (~> 0.10.4)
   pry-rails (~> 0.3.6)
@@ -217,6 +220,7 @@ DEPENDENCIES
   rspec-apib (~> 0.2.0)
   rspec-rails (~> 3.6)
   shoulda-matchers!
+  timecop (~> 0.8.1)
   tzinfo-data
 
 BUNDLED WITH

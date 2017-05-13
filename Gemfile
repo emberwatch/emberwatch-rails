@@ -23,6 +23,9 @@ gem 'active_model_serializers', '~> 0.10.0'
 # CORS
 gem 'rack-cors', '~> 0.4.1', require: 'rack/cors'
 
+# Authentication
+gem 'jwt', '~> 1.5', '>= 1.5.4'
+
 # Authorization
 gem 'rolify', '~> 5.1'
 gem 'pundit', '~> 1.1'
@@ -57,6 +60,9 @@ group :test do
 
   # API auto documentation
   gem 'rspec-apib', '~> 0.2.0'
+
+  # Time control
+  gem 'timecop', '~> 0.8.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

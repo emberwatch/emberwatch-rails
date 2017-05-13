@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Api::Books", type: :request do
-  let(:admin) { FactoryGirl.build :admin }
+  let(:admin) { FactoryGirl.create :admin }
   let(:book) { FactoryGirl.create :book, id: '385eec4b-dd26-4f49-8ff2-d84861ae9541' }
+  let(:token) { "Token #{AuthenticationService.new(admin).create_token}" }
+  let(:headers) { { 'Authorization' => token } }
 
   before :each do
     book
@@ -10,8 +12,6 @@ RSpec.describe "Api::Books", type: :request do
 
   describe '#index' do
     it "works", doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::BooksController).to receive(:current_user).and_return(admin)
       get api_books_path
       expect(response).to have_http_status(200)
     end
@@ -19,18 +19,14 @@ RSpec.describe "Api::Books", type: :request do
 
   describe '#create' do
     it 'is successful', doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::BooksController).to receive(:current_user).and_return(admin)
       attributes = { type: 'books', attributes: FactoryGirl.attributes_for(:book) }
-      post api_books_path, params: { data: attributes }
+      post api_books_path, params: { data: attributes }, headers: headers
       expect(response).to be_successful
     end
 
     it 'is unprocessable with invalid data', doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::BooksController).to receive(:current_user).and_return(admin)
       attributes = { type: 'books', attributes: FactoryGirl.attributes_for(:book, title: '') }
-      post api_books_path, params: { data: attributes }
+      post api_books_path, params: { data: attributes }, headers: headers
       expect(response).to be_unprocessable
     end
 
@@ -43,25 +39,21 @@ RSpec.describe "Api::Books", type: :request do
 
   describe '#show' do
     it 'is successful', doc: true do
-      get api_book_path(id: book.id)
+      get api_book_path(id: book.id), headers: headers
       expect(response).to be_successful
     end
   end
 
   describe '#update' do
     it 'is successful', doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::BooksController).to receive(:current_user).and_return(admin)
       attributes = { type: 'books', id: book.id, attributes: { title: 'new name' } }
-      patch api_book_path(id: book.id), params: { data: attributes }
+      patch api_book_path(id: book.id), params: { data: attributes }, headers: headers
       expect(response).to be_successful
     end
 
     it 'is unprocessable with invalid data', doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::BooksController).to receive(:current_user).and_return(admin)
       attributes = { type: 'books', id: book.id, attributes: { title: '' } }
-      patch api_book_path(id: book.id), params: { data: attributes }
+      patch api_book_path(id: book.id), params: { data: attributes }, headers: headers
       expect(response).to be_unprocessable
     end
 
@@ -74,9 +66,7 @@ RSpec.describe "Api::Books", type: :request do
 
   describe '#destroy' do
     it 'is successful', doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::BooksController).to receive(:current_user).and_return(admin)
-      delete api_book_path(id: book.id)
+      delete api_book_path(id: book.id), headers: headers
       expect(response).to be_successful
     end
 

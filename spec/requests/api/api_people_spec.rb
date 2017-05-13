@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Api::People", type: :request do
-  let(:admin) { FactoryGirl.build :admin }
+  let(:admin) { FactoryGirl.create :admin }
   let(:person) { FactoryGirl.create :person, id: '385eec4b-dd26-4f49-8ff2-d84861ae9541' }
+  let(:token) { "Token #{AuthenticationService.new(admin).create_token}" }
+  let(:headers) { { 'Authorization' => token } }
 
   before :each do
     person
@@ -10,8 +12,6 @@ RSpec.describe "Api::People", type: :request do
 
   describe '#index' do
     it "works", doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::PeopleController).to receive(:current_user).and_return(admin)
       get api_people_path
       expect(response).to have_http_status(200)
     end
@@ -19,18 +19,14 @@ RSpec.describe "Api::People", type: :request do
 
   describe '#create' do
     it 'is successful', doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::PeopleController).to receive(:current_user).and_return(admin)
       attributes = { type: 'people', attributes: FactoryGirl.attributes_for(:person) }
-      post api_people_path, params: { data: attributes }
+      post api_people_path, params: { data: attributes }, headers: headers
       expect(response).to be_successful
     end
 
     it 'is unprocessable with invalid data', doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::PeopleController).to receive(:current_user).and_return(admin)
       attributes = { type: 'people', attributes: FactoryGirl.attributes_for(:person, name: '') }
-      post api_people_path, params: { data: attributes }
+      post api_people_path, params: { data: attributes }, headers: headers
       expect(response).to be_unprocessable
     end
 
@@ -50,10 +46,8 @@ RSpec.describe "Api::People", type: :request do
 
   describe '#update' do
     it 'is successful', doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::PeopleController).to receive(:current_user).and_return(admin)
       attributes = { type: 'people', id: person.id, attributes: { name: 'new name' } }
-      patch api_person_path(id: person.id), params: { data: attributes }
+      patch api_person_path(id: person.id), params: { data: attributes }, headers: headers
       expect(response).to be_successful
     end
 
@@ -61,7 +55,7 @@ RSpec.describe "Api::People", type: :request do
       # FIXME Send real headers as soon as it's implemented
       allow_any_instance_of(Api::PeopleController).to receive(:current_user).and_return(admin)
       attributes = { type: 'people', id: person.id, attributes: { name: '' } }
-      patch api_person_path(id: person.id), params: { data: attributes }
+      patch api_person_path(id: person.id), params: { data: attributes }, headers: headers
       expect(response).to be_unprocessable
     end
 
@@ -74,9 +68,7 @@ RSpec.describe "Api::People", type: :request do
 
   describe '#destroy' do
     it 'is successful', doc: true do
-      # FIXME Send real headers as soon as it's implemented
-      allow_any_instance_of(Api::PeopleController).to receive(:current_user).and_return(admin)
-      delete api_person_path(id: person.id)
+      delete api_person_path(id: person.id), headers: headers
       expect(response).to be_successful
     end
 

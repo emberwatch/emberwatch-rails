@@ -2,11 +2,20 @@ module Api
   class BaseController < ApplicationController
     include Pundit
     include Concerns::ExceptionHandling
+    include ActionController::HttpAuthentication::Token::ControllerMethods
 
-    # We have not yet decided on the method to sign-in to emberwatch.com
-    # FIXME Authentication needs to be implemented
+    before_action :authenticate
+
     def current_user
-      nil
+      @current_user
+    end
+
+    private
+
+    def authenticate
+      authenticate_with_http_token do |token, options|
+        @current_user = AuthenticationService.validate_token(token) if token
+      end
     end
   end
 end
