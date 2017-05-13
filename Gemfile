@@ -56,7 +56,7 @@ group :test do
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers', branch: 'rails-5'
 
   # API auto documentation
-  gem 'rspec-apib', '~> 0.1.0'
+  gem 'rspec-apib', '~> 0.2.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
