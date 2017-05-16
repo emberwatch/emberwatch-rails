@@ -5,6 +5,8 @@ module Api
     include ActionController::HttpAuthentication::Token::ControllerMethods
 
     before_action :authenticate
+    after_action :verify_authorized, except: [:index]
+    after_action :verify_policy_scoped, only: :index
 
     def current_user
       @current_user
