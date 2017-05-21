@@ -1,0 +1,22 @@
+db:
+  image: postgres:9.6.2
+
+web:
+  build: .
+  command: rails server --port 3000 --binding 0.0.0.0
+  environment:
+    - "DATABASE_HOST=db"
+  ports:
+    - "3000:3000"
+  links:
+    - db
+  volumes:
+    - .:/usr/src/app
+  volumes_from:
+    - bundle
+
+bundle:
+  image: emberwatch_web
+  command: echo "I'm a little data container, short and stout..."
+  volumes:
+    - /usr/local/bundle
