@@ -10,7 +10,10 @@ Rails.application.routes.draw do
     resources :talks, except: %i(new edit)
     resources :tutorials, except: %i(new edit)
     resources :users, only: %i(index show)
+
+    namespace :podcast do
+      resources :feeds, except: %i(new edit)
+    end
     get 'contribute', to: 'temporary#contribute'
-    get 'podcast-feeds', to: 'temporary#podcast_feeds'
   end
 end

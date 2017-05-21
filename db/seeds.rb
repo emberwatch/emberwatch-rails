@@ -8,10 +8,10 @@
 require_relative 'seeds/books'
 require_relative 'seeds/events'
 require_relative 'seeds/people'
+require_relative 'seeds/podcast-feeds'
 require_relative 'seeds/screencasts'
 require_relative 'seeds/talks'
 require_relative 'seeds/tutorials'
-
 
 BOOKS.map do |b|
   processed = b.reject { |(k)| k === :authorIds }
@@ -28,6 +28,10 @@ PEOPLE.map do |b|
   Person.create(processed)
 end
 
+PODCAST_FEEDS.map do |b|
+  PodcastFeed.create(b)
+end
+
 SCREENCAST.map do |b|
   processed = b.reject { |(k)| k === :authorIds }
   Screencast.create(processed)
@@ -42,4 +46,3 @@ TUTORIALS.map do |b|
   processed = b.reject { |(k)| k === :authorIds }
   Tutorial.create(processed)
 end
-
