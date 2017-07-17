@@ -5,6 +5,10 @@ running, direnv should be installed on your computer and be allowed for the
 directory of this project. This will set the `COMPOSE_PROJECT_NAME` when
 entering it.
 
+```markdown
+**DEPRECATED** This project is not currently maintained.
+```
+
 ## Setup
 
 The following components need to be installed and configured properly on your
